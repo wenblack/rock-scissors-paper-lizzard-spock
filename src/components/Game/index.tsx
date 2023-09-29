@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Choices } from "../Choices";
 
 export function Game() {
   const [element1, setElement1] = useState("");
   const [element2, setElement2] = useState("");
   const [result, setResult] = useState('');
+
+  useEffect(() => {
+    getRandomElement()
+    handleCompare(element1, element2)
+  }, [element1, element2, result])
 
   function getRandomElement() {
     const randomIndex = Math.ceil(Math.random() * 5);
@@ -102,19 +108,42 @@ export function Game() {
     }
   };
 
+
+  function setRock() {
+    setElement1('pedra')
+  }
+
+  function setPaper() {
+    setElement1('papel')
+  }
+
+  async function setScissor() {
+    setElement1('tesoura')
+  }
+
+  function setLizzard() {
+    setElement1('lagarto')
+  }
+
+  function setSpock() {
+    setElement1('spock')
+  }
+
   return (
-    <div>
-      <h1>Comparador de Elementos</h1>
-      <div>
-        <label>Sua escolha: </label>
-        <input
-          type="text"
-          onChange={(e) => setElement1(e.target.value.toLowerCase())}
-        />
-      </div>
-      <button onClick={() => handleCompare(element1, element2)}>Comparar</button>
-      {result && <p>Resultado: {result}</p>}
-    </div>
+    <div className="flex flex-col items-center">
+      <Choices
+        handleRockFunction={setRock}
+        handleLizzardFunction={setLizzard}
+        handlePaperFunction={setPaper}
+        handleScissorFunction={setScissor}
+        handleSpockFunction={setSpock}
+      />
+      <button type="submit" onClick={() => {
+        alert(result)
+        window.location.reload()
+      }
+      } className="flex max-w-[400px] w-full text-gray-200 font-bold justify-center rounded-md p-2 bg-blue-500">Jogar</button>
+    </div >
   );
 };
 
