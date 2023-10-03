@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Choices } from "../Choices";
+import Alert from 'sweetalert2'
 
 export function Game() {
   const [element1, setElement1] = useState("");
@@ -80,9 +81,9 @@ export function Game() {
       case "lagarto":
         switch (elemento2) {
           case "tesoura":
-            return setResult("Infelzimente você perdeu! Tesoura decapitou o Lagarto");
+            return setResult("Infelizmente você perdeu! Tesoura decapitou o Lagarto");
           case "pedra":
-            return setResult("Infelzimente você perdeu! Pedra esmagou o Lagarto");
+            return setResult("Infelizmente você perdeu! Pedra esmagou o Lagarto");
           case "spock":
             return setResult("Parabés,você venceu! Lagarto envenenou Spock");
           case "papel":
@@ -93,9 +94,9 @@ export function Game() {
       case "spock":
         switch (elemento2) {
           case "lagarto":
-            return setResult("Infelzimente você perdeu! Lagarto envenenou Spock");
+            return setResult("Infelizmente você perdeu! Lagarto envenenou Spock");
           case "papel":
-            return setResult("Infelzimente você perdeu! Papel refutou Spock");
+            return setResult("Infelizmente você perdeu! Papel refutou Spock");
           case "tesoura":
             return setResult("Parabés,você venceu! Spock derreteu a Tesoura");
           case "pedra":
@@ -108,6 +109,39 @@ export function Game() {
     }
   };
 
+  function showResult() {
+    const data = result
+
+    let looseResult = data.startsWith('Infelizmente você perdeu')
+    let WinResult = data.startsWith('Parabés,você venceu')
+    let drawResult = data.startsWith('Empate')
+    let undefinedResult = data.startsWith('Opções inválidas')
+
+    if (undefinedResult) {
+      Alert.fire({
+        icon: 'error',
+        title: 'Por favor, escolha uma opção'
+      })
+    }
+    if (looseResult) {
+      Alert.fire({
+        icon: 'error',
+        title: `${result}`
+      })
+    }
+    if (WinResult) {
+      Alert.fire({
+        icon: 'success',
+        title: `${result}`
+      })
+    }
+    if (drawResult) {
+      Alert.fire({
+        icon: 'info',
+        title: `${result}`
+      })
+    }
+  }
 
   function setRock() {
     setElement1('pedra')
@@ -139,10 +173,12 @@ export function Game() {
         handleSpockFunction={setSpock}
       />
       <button type="submit" onClick={() => {
-        alert(result)
-        window.location.reload()
+        showResult()
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       }
-      } className="flex max-w-[400px] w-full text-gray-200 font-bold justify-center rounded-md p-2 bg-blue-500">Jogar</button>
+      } className="flex max-w-[400px] w-[70vw] text-gray-200 font-bold justify-center rounded-md p-2 bg-blue-500">Jogar</button>
     </div >
   );
 };
