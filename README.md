@@ -30,14 +30,15 @@ Follow these instructions to get a copy of the project up and running on your lo
 ### Installation
 
 1. Clone the repository:
-<pre>
+ ```bash
   git clone https://github.com/wenblack/rock-scissors-paper-lizzard-spock.git
-</pre>
+```
 
 2. Navigate to the project directory:
-  <pre>
-  cd rock-scissors-paper-lizzard-spock
-</pre>
+ ```bash
+   cd rock-scissors-paper-lizzard-spock
+```
+
 
 3. Install the dependencies:
 ```bash
@@ -47,9 +48,9 @@ Follow these instructions to get a copy of the project up and running on your lo
 ## Usage
 Start the development server:
 
-<pre>
-yarn  dev
-</pre>
+```bash
+  yarn dev
+```
 
 Open your web browser and visit http://localhost:3000 to play the game.
 
